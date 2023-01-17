@@ -7,6 +7,9 @@ var serviceCollection = new ServiceCollection();
 
 serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
 
+// serviceCollection.AddTransient<INotificationHandler<PaintToyotaCommand>, PaintCarCommandHandler>(); // <-- workaround for issue
+// serviceCollection.AddTransient<INotificationHandler<PaintTeslaCommand>, PaintCarCommandHandler>(); // <-- workaround for issue
+
 using var serviceProvider = serviceCollection.BuildServiceProvider();
 
 var toyotaPainting = new PaintToyotaCommand { Color = "black", SecondaryColor = "red" };
@@ -21,4 +24,5 @@ var h1 = serviceProvider.GetService<INotificationHandler<PaintCarCommandBase>>()
 var h2 = serviceProvider.GetService<INotificationHandler<PaintToyotaCommand>>(); // <-- Null
 var h3 = serviceProvider.GetService<INotificationHandler<PaintTeslaCommand>>(); // <-- Null
 
+Console.WriteLine("End");
 Console.ReadLine();
